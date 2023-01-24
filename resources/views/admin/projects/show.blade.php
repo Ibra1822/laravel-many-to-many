@@ -14,6 +14,16 @@
 <h2> Tipo di progetto : {{$project->type?->name}}</h2>
 
 <p>{{$project->original_image_name}}</p>
+
+<div class="center">
+
+    @forelse ($project->tech as $item)
+    <span class="list-group-item "> {{$item->name}} </span>
+    @empty
+        not-result
+    @endforelse
+
+</div>
 <p>Descrizzione : {{$project->summary}}</p>
 
 <a class="btn btn-dark" href="{{route('admin.projects.index')}}">Torna sui Progetti</a>

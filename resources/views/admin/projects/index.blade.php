@@ -21,6 +21,13 @@
 </div>
   <div class="card-down">
     <h5 class="my-3">{{$project->name}}  </h5>
+    <ul class="d-flex text-center justify-content-evenly ">
+        @forelse ($project->tech as $item)
+        <li class="list-group-item"> {{$item->name}} </li>
+        @empty
+            not-result
+        @endforelse
+    </ul>
     <h6 class="text-decoration-underline">{{$project->type?->name}}</h6>
     <div class="d-flex justify-content-center align-items-center ">
         <a class="btn btn-light" href="{{route('admin.projects.show',$project)}}"><i class="fa-solid fa-eye"></i></a>
