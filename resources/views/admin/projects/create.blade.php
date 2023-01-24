@@ -44,6 +44,14 @@
         </select>
       </div>
       <div class="mb-3">
+        @foreach ($teches as $tech )
+
+        <input type="checkbox" name="techs[]" id="tech{{$loop->iteration}}" value="{{$tech->id}}" @if (in_array($tech->id, old('techs',[]) )) checked  @endif   >
+        <label for="tech{{$loop->iteration}}">{{$tech->name}}</label>
+
+        @endforeach
+    </div>
+      <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Immagine</label>
         <input type="file" onchange="showImage(event)"  class="form-control @error('cover_image') error @enderror " value="{{old('cover_image')}}"  name="cover_image">
         @error('cover_image') <p> {{$message}} </p> @enderror

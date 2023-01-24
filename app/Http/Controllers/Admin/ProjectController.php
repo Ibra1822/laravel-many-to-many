@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
+use App\Models\Teche;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -31,8 +32,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-
-        return view('admin.projects.create',compact('types'));
+        $teches = Teche::all();
+        return view('admin.projects.create',compact('types','teches'));
     }
 
     /**
@@ -45,6 +46,7 @@ class ProjectController extends Controller
     {
         $data = $request->all();
 
+
         if(array_key_exists('cover_image',$data)){
             $data['original_image_name'] = $request->file('cover_image')->getClientOriginalName();
             $data['cover_image'] = Storage::put('uploads',$data['cover_image']);
@@ -54,6 +56,10 @@ class ProjectController extends Controller
         $data['slug'] = Project::generateSlug($data['name']);
         $newProject->fill($data);
         $newProject->save();
+
+        if(array_key_exists('techs', $data)){
+            $newProject->tech()->attach($data['techs']);
+        }
 
         return redirect()->route('admin.projects.show',$newProject);
     }
