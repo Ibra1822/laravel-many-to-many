@@ -85,8 +85,9 @@ class ProjectController extends Controller
     {
 
         $types = Type::all();
+        $teches = Teche::all();
 
-        return view('admin.projects.edit',compact('project','types'));
+        return view('admin.projects.edit',compact('project','types','teches'));
     }
 
     /**
@@ -116,8 +117,15 @@ class ProjectController extends Controller
 
         }
 
-
         $project->update($data);
+
+        if(array_key_exists('techs', $data)){
+            $project->tech()->sync($data['techs']);
+        }else{
+            $project->tech()->detach();
+        }
+
+
 
         return redirect()->route('admin.projects.show',$project);
     }

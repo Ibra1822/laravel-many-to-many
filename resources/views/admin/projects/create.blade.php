@@ -44,6 +44,7 @@
         </select>
       </div>
       <div class="mb-3">
+        <label class="form-label d-block">Seleziona una tecnologia</label>
         @foreach ($teches as $tech )
 
         <input type="checkbox" name="techs[]" id="tech{{$loop->iteration}}" value="{{$tech->id}}" @if (in_array($tech->id, old('techs',[]) )) checked  @endif   >

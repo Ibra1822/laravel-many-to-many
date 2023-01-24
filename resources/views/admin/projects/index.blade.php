@@ -20,7 +20,7 @@
     @endif
 </div>
   <div class="card-down">
-    <h5 class="my-3">{{$project->name}}  </h5>
+    <h5 class="my-3">{{$project->name}} {{$project->id}}  </h5>
     <ul class="d-flex text-center justify-content-evenly ">
         @forelse ($project->tech as $item)
         <li class="list-group-item"> {{$item->name}} </li>
